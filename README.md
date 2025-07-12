@@ -3,9 +3,9 @@
 [![Build](https://github.com/your-username/asdf-voyager-verifier/workflows/Build/badge.svg)](https://github.com/your-username/asdf-voyager-verifier/actions)
 [![GitHub license](https://img.shields.io/github/license/your-username/asdf-voyager-verifier?color=blue)](https://github.com/your-username/asdf-voyager-verifier/blob/main/LICENSE)
 
-[Voyager](https://github.com/NethermindEth/starknet-contract-verifier) plugin for the [asdf version manager](https://asdf-vm.com).
+[Starknet Contract Verifier](https://github.com/NethermindEth/starknet-contract-verifier) plugin for the [asdf version manager](https://asdf-vm.com).
 
-Voyager is a contract class verification tool that allows you to verify your Starknet classes on a block explorer.
+The Starknet Contract Verifier (binary name: `voyager`) is a contract class verification tool that allows you to verify your Starknet classes on a block explorer.
 
 ## Contents
 
@@ -43,7 +43,7 @@ asdf install voyager 0.4.1
 asdf global voyager latest
 
 # Now voyager commands are available
-voyager --version
+voyager --version  # Shows: Starknet Contract Verifier 0.4.3
 ```
 
 Check [asdf](https://github.com/asdf-vm/asdf) readme for more instructions on how to
