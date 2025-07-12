@@ -24,7 +24,7 @@ install_tool() {
     if [ -f ".binary_install" ]; then
       # Binary installation - just copy the binary
       echo "* Installing voyager $version from pre-built binary..."
-      find . -name "voyager" -type f -executable | head -1 | xargs -I {} cp {} "$install_path/bin/voyager" || fail "Could not copy binary"
+      cp voyager "$install_path/bin/voyager" || fail "Could not copy binary"
     else
       # Source installation - build with cargo
       echo "* Building voyager $version with cargo..."

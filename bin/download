@@ -53,9 +53,7 @@ platform=$(get_platform)
 arch=$(get_arch)
 
 # Use pre-built binaries for v0.4.3 and later, source for older versions
-echo "* Checking version $ASDF_INSTALL_VERSION against 0.4.3"
 if version_ge "$ASDF_INSTALL_VERSION" "0.4.3"; then
-  echo "* Using pre-built binary for version $ASDF_INSTALL_VERSION"
   download_url=$(get_binary_download_url "$ASDF_INSTALL_VERSION" "$platform" "$arch")
   echo "* Downloading voyager binary $ASDF_INSTALL_VERSION..."
   curl "${curl_opts[@]}" -o "$ASDF_DOWNLOAD_PATH/binary.tar.gz" "$download_url" || fail "Could not download $download_url"
@@ -67,7 +65,6 @@ if version_ge "$ASDF_INSTALL_VERSION" "0.4.3"; then
   # Mark that this is a binary installation
   touch "$ASDF_DOWNLOAD_PATH/.binary_install"
 else
-  echo "* Using source build for version $ASDF_INSTALL_VERSION"
   download_url=$(get_source_download_url "$ASDF_INSTALL_VERSION")
   echo "* Downloading voyager source $ASDF_INSTALL_VERSION..."
   curl "${curl_opts[@]}" -o "$ASDF_DOWNLOAD_PATH/source.tar.gz" "$download_url" || fail "Could not download $download_url"
