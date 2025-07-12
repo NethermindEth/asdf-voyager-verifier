@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+current_script_path=${BASH_SOURCE[0]}
+plugin_dir=$(dirname "$(dirname "$current_script_path")")
+
+# shellcheck source=../lib/utils.bash
+source "${plugin_dir}/lib/utils.bash"
+
+list_github_tags() {
+  git ls-remote --tags --refs "$GH_REPO" |
+    grep -o 'refs/tags/.*' |
+    cut -d/ -f3- |
+    sed 's/^v//' # remove v prefix
+}
+
+list_all_versions() {
+  list_github_tags |
+    sort_versions |
+    xargs echo
+}
+
+list_all_versions ${ASDF_INSTALL_VERSION:-}
