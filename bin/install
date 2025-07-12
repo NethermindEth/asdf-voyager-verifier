@@ -8,13 +8,38 @@ plugin_dir=$(dirname "$(dirname "$current_script_path")")
 # shellcheck source=../lib/utils.bash
 source "${plugin_dir}/lib/utils.bash"
 
-mkdir -p "$ASDF_INSTALL_PATH/bin"
+install_tool() {
+  local install_type="$1"
+  local version="$2"
+  local install_path="$3"
 
-release_file="$ASDF_DOWNLOAD_PATH/voyager"
+  if [ "$install_type" != "version" ]; then
+    fail "asdf-$TOOL_NAME supports release installs only"
+  fi
 
-if [ ! -f "$release_file" ]; then
-  fail "Expected release file to be at $release_file"
-fi
+  (
+    mkdir -p "$install_path/bin"
+    cd "$ASDF_DOWNLOAD_PATH"
 
-cp "$release_file" "$ASDF_INSTALL_PATH/bin/"
-chmod +x "$ASDF_INSTALL_PATH/bin/voyager"
+    echo "* Building voyager $version with cargo..."
+    if ! command -v cargo >/dev/null 2>&1; then
+      fail "cargo is required but not found. Please install Rust: https://rustup.rs/"
+    fi
+
+    cargo build --release --bin voyager || fail "Build failed"
+    
+    cp target/release/voyager "$install_path/bin/voyager" || fail "Could not copy binary"
+    chmod +x "$install_path/bin/voyager"
+
+    local tool_cmd
+    tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
+    test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."
+
+    echo "$TOOL_NAME $version installation was successful!"
+  ) || (
+    rm -rf "$install_path"
+    fail "An error occurred while installing $TOOL_NAME $version."
+  )
+}
+
+install_tool "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
