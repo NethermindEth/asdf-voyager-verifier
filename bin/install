@@ -21,14 +21,21 @@ install_tool() {
     mkdir -p "$install_path/bin"
     cd "$ASDF_DOWNLOAD_PATH"
 
-    echo "* Building voyager $version with cargo..."
-    if ! command -v cargo >/dev/null 2>&1; then
-      fail "cargo is required but not found. Please install Rust: https://rustup.rs/"
-    fi
+    if [ -f ".binary_install" ]; then
+      # Binary installation - just copy the binary
+      echo "* Installing voyager $version from pre-built binary..."
+      find . -name "voyager" -type f -executable | head -1 | xargs -I {} cp {} "$install_path/bin/voyager" || fail "Could not copy binary"
+    else
+      # Source installation - build with cargo
+      echo "* Building voyager $version with cargo..."
+      if ! command -v cargo >/dev/null 2>&1; then
+        fail "cargo is required but not found. Please install Rust: https://rustup.rs/"
+      fi
 
-    cargo build --release --bin voyager || fail "Build failed"
+      cargo build --release --bin voyager --quiet 2>/dev/null || fail "Build failed"
+      cp target/release/voyager "$install_path/bin/voyager" || fail "Could not copy binary"
+    fi
     
-    cp target/release/voyager "$install_path/bin/voyager" || fail "Could not copy binary"
     chmod +x "$install_path/bin/voyager"
 
     local tool_cmd
