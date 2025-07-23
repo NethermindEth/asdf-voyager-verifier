@@ -41,12 +41,12 @@ get_binary_download_url() {
     *) fail "Architecture $arch is not supported" ;;
   esac
   
-  echo "https://github.com/NethermindEth/starknet-contract-verifier/releases/download/v${version}/starknet-contract-verifier-v${version}-${arch}-${platform}.tar.gz"
+  echo "https://github.com/NethermindEth/voyager-verifier/releases/download/v${version}/starknet-contract-verifier-v${version}-${arch}-${platform}.tar.gz"
 }
 
 get_source_download_url() {
   local version="$1"
-  echo "https://github.com/NethermindEth/starknet-contract-verifier/archive/v${version}.tar.gz"
+  echo "https://github.com/NethermindEth/voyager-verifier/archive/v${version}.tar.gz"
 }
 
 platform=$(get_platform)

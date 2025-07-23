@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-GH_REPO="https://github.com/NethermindEth/starknet-contract-verifier"
+GH_REPO="https://github.com/NethermindEth/voyager-verifier"
 TOOL_NAME="voyager"
 TOOL_TEST="voyager --version"
 

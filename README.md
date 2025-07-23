@@ -3,7 +3,7 @@
 [![Build](https://github.com/your-username/asdf-voyager-verifier/workflows/Build/badge.svg)](https://github.com/your-username/asdf-voyager-verifier/actions)
 [![GitHub license](https://img.shields.io/github/license/your-username/asdf-voyager-verifier?color=blue)](https://github.com/your-username/asdf-voyager-verifier/blob/main/LICENSE)
 
-[Starknet Contract Verifier](https://github.com/NethermindEth/starknet-contract-verifier) plugin for the [asdf version manager](https://asdf-vm.com).
+[Starknet Contract Verifier](https://github.com/NethermindEth/voyager-verifier) plugin for the [asdf version manager](https://asdf-vm.com).
 
 The Starknet Contract Verifier (binary name: `voyager`) is a contract class verification tool that allows you to verify your Starknet classes on a block explorer.
 
